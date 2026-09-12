@@ -7,8 +7,11 @@ async function parseMidiJsSoundfont(text: string): Promise<{ [key: string]: Audi
   var begin = text.indexOf('MIDI.Soundfont.')
   if (begin < 0) throw Error('Invalid MIDI.js Soundfont format:')
   begin = text.indexOf('=', begin) + 2
-  var end = text.lastIndexOf(',')
-  let json: { [key: string]: string } = JSON.parse(text.slice(begin, end) + '}')
+  // Files end either with `"C8": "..."\n}` or with a trailing comma; accept both.
+  var end = text.lastIndexOf('}')
+  let json: { [key: string]: string } = JSON.parse(
+    text.slice(begin, end + 1).replace(/,\s*}$/, '}'),
+  )
 
   const audioBufferPromises = Object.entries(json).map(async ([key, dataUri]) => {
     const base64 = dataUri.slice(dataUri.indexOf(',') + 1)
