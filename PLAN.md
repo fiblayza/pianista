@@ -69,7 +69,7 @@ esperada" con tolerancia, no evalúa cada nota de un acorde.
 - Catálogo público en `/songs/` del repo: MusicXML de dominio público, curado por nivel. Cualquiera añade canciones con un PR.
 - **Entregable:** subes tu partitura en MusicXML y la practicas.
 
-### Fase 3 — Micro monofónico bien hecho (1‑2 sesiones)
+### Fase 3 — Micro monofónico ✅ (hecho 12/09/2026)
 - Nuevo módulo `src/input/micMono.ts` con `pitchy` (McLeod) en AudioWorklet, misma interfaz de eventos que el MIDI.
 - Calibración guiada: tocar C4, medir ruido de fondo, umbral de confianza ajustable (mando visible).
 - Modo "espera": la partitura no avanza hasta que suene la nota correcta.
@@ -104,8 +104,8 @@ Curso en `/lessons/*.md` + canción asociada, en ES y EN. Cada lección: texto c
 - Mapa de progreso: qué lecciones superadas, sugerencia de la siguiente.
 - **Entregable:** camino guiado de cero a intermedio sin salir de la app.
 
-### Fase 6 — Micro polifónico (experimental, 2‑3 sesiones)
-- `@spotify/basic-pitch` en Web Worker, ventana deslizante de ~0,5 s.
+### Fase 6 — Micro polifónico ✅ experimental (hecho 12/09/2026, adelantada)
+- Modelo Basic Pitch (900 KB) con TensorFlow.js en el hilo principal, ventana deslizante de 2 s, inferencia cada 150 ms. Pendiente: Web Worker si la animación da tirones; calibración del umbral con piano real.
 - Solo activo si el usuario lo elige; etiquetado "experimental".
 - **Entregable:** acordes por micro "casi siempre". Se documenta lo que no funciona.
 

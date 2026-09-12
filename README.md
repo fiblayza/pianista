@@ -19,6 +19,6 @@ Se despliega solo a GitHub Pages en cada push a `main` (`.github/workflows/deplo
 
 ## Créditos / Credits
 
-Pianista es un fork de [sightread](https://github.com/sightread/sightread) (Jake Fried), snapshot de marzo de 2026, GPL‑3.0. Sonidos de piano: Salamander Grand Piano (CC‑BY). Otros instrumentos: [midi-js-soundfonts](https://github.com/gleitz/midi-js-soundfonts) (MIT).
+Pianista es un fork de [sightread](https://github.com/sightread/sightread) (Jake Fried), snapshot de marzo de 2026, GPL‑3.0. Sonidos de piano: Salamander Grand Piano (CC‑BY). Otros instrumentos: [midi-js-soundfonts](https://github.com/gleitz/midi-js-soundfonts) (MIT). Detección de acordes por micrófono: modelo [Basic Pitch](https://github.com/spotify/basic-pitch) de Spotify (Apache‑2.0, `public/basic-pitch/`). Detección monofónica: [pitchy](https://github.com/ianprime0509/pitchy) (MIT).
 
 Licencia: GPL‑3.0, ver [LICENSE](./LICENSE).

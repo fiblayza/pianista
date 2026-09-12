@@ -38,6 +38,7 @@
     "@radix-ui/react-tooltip": "1.2.8",
     "@react-router/node": "7.11.0",
     "@react-router/serve": "7.11.0",
+    "@tensorflow/tfjs": "^4.22.0",
     "@tonejs/midi": "2.0.28",
     "clsx": "2.1.1",
     "idb-keyval": "6.2.2",

@@ -5,7 +5,12 @@ import {
   micClarityAtom,
   micEnabledAtom,
   micErrorAtom,
-  micNoteAtom,
+  micLoadingAtom,
+  micModeAtom,
+  micNotesAtom,
+  micOnsetAtom,
+  setMicMode,
+  type MicMode,
 } from '@/features/mic'
 import {
   disableInputMidiDevice,
@@ -243,29 +248,34 @@ function noteLabel(n: number) {
   return NOTE_NAMES[n % 12] + (Math.floor(n / 12) - 1)
 }
 
-// Acoustic piano / no USB: detect the note being played with the microphone. Single notes only.
+// Acoustic piano / no USB: detect what is being played with the microphone.
 function MicRow() {
   const enabled = useAtomValue(micEnabledAtom)
+  const loading = useAtomValue(micLoadingAtom)
   const error = useAtomValue(micErrorAtom)
-  const note = useAtomValue(micNoteAtom)
+  const notes = useAtomValue(micNotesAtom)
+  const mode = useAtomValue(micModeAtom)
   const [clarity, setClarity] = useAtom(micClarityAtom)
+  const [onset, setOnset] = useAtom(micOnsetAtom)
+  const status = error
+    ? `Error: ${error}`
+    : loading
+      ? 'Loading…'
+      : enabled
+        ? notes.length
+          ? `Hearing ${notes.map(noteLabel).join(' ')}`
+          : 'Listening…'
+        : 'For pianos without USB/MIDI.'
   return (
     <div className="flex flex-col gap-3 rounded-xl border border-white/5 bg-white/[0.04] px-4 py-3">
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-1">
           <span className="text-base font-medium text-white/90">This Device's Microphone</span>
-          <span className="text-xs text-white/40">
-            {error
-              ? `Error: ${error}`
-              : enabled
-                ? note !== null
-                  ? `Hearing ${noteLabel(note)}`
-                  : 'Listening… play a single note'
-                : 'For acoustic pianos. Single notes only.'}
-          </span>
+          <span className="text-xs text-white/40">{status}</span>
         </div>
         <Switch
           isSelected={enabled}
+          isDisabled={loading}
           onChange={() => (enabled ? disableMic() : enableMic())}
           size="lg"
           className="text-white/60"
@@ -273,9 +283,20 @@ function MicRow() {
           <span className="sr-only">Toggle microphone</span>
         </Switch>
       </div>
-      {enabled && (
-        <label className="flex items-center gap-3 text-xs text-white/40">
-          Strictness
+      <label className="flex items-center gap-3 text-xs text-white/40">
+        Mode
+        <select
+          value={mode}
+          onChange={(e) => setMicMode(e.target.value as MicMode)}
+          className="rounded-md bg-white/10 px-2 py-1 text-white/80"
+        >
+          <option value="mono">Single notes (fast, reliable)</option>
+          <option value="poly">Chords (experimental, ~250ms delay)</option>
+        </select>
+      </label>
+      <label className="flex items-center gap-3 text-xs text-white/40">
+        Strictness
+        {mode === 'mono' ? (
           <input
             type="range"
             min={0.6}
@@ -285,8 +306,18 @@ function MicRow() {
             onChange={(e) => setClarity(Number(e.target.value))}
             className="flex-1 accent-purple-400"
           />
-        </label>
-      )}
+        ) : (
+          <input
+            type="range"
+            min={0.2}
+            max={0.9}
+            step={0.01}
+            value={onset}
+            onChange={(e) => setOnset(Number(e.target.value))}
+            className="flex-1 accent-purple-400"
+          />
+        )}
+      </label>
     </div>
   )
 }
