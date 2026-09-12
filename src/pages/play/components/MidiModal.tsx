@@ -1,5 +1,13 @@
 import { Modal, Switch } from '@/components'
 import {
+  disableMic,
+  enableMic,
+  micClarityAtom,
+  micEnabledAtom,
+  micErrorAtom,
+  micNoteAtom,
+} from '@/features/mic'
+import {
   disableInputMidiDevice,
   disableOutputMidiDevice,
   enabledInputIdsAtom,
@@ -13,9 +21,9 @@ import {
   enableAudioContext,
 } from '@/features/synth/utils'
 import { useMidiInputs, useMidiOutputs } from '@/hooks'
-import { KeyboardMusic, RefreshCw, Speaker } from '@/icons'
+import { KeyboardMusic, Mic, RefreshCw, Speaker } from '@/icons'
 import clsx from 'clsx'
-import { useAtomValue } from 'jotai'
+import { useAtom, useAtomValue } from 'jotai'
 import { useState, type ReactNode } from 'react'
 
 interface MidiModalProps {
@@ -82,6 +90,9 @@ export function MidiModal(props: MidiModalProps) {
                   : []
               }
             />
+          </MidiSection>
+          <MidiSection label="Microphone" icon={<Mic className="h-4 w-4 text-white/40" />}>
+            <MicRow />
           </MidiSection>
           <MidiSection label="Outputs" icon={<Speaker className="h-4 w-4 text-white/40" />}>
             <DeviceList
@@ -223,6 +234,59 @@ function DeviceRow({ device }: { device: DeviceItem }) {
       >
         <span className="sr-only">Toggle {device.name}</span>
       </Switch>
+    </div>
+  )
+}
+
+const NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+function noteLabel(n: number) {
+  return NOTE_NAMES[n % 12] + (Math.floor(n / 12) - 1)
+}
+
+// Acoustic piano / no USB: detect the note being played with the microphone. Single notes only.
+function MicRow() {
+  const enabled = useAtomValue(micEnabledAtom)
+  const error = useAtomValue(micErrorAtom)
+  const note = useAtomValue(micNoteAtom)
+  const [clarity, setClarity] = useAtom(micClarityAtom)
+  return (
+    <div className="flex flex-col gap-3 rounded-xl border border-white/5 bg-white/[0.04] px-4 py-3">
+      <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-1">
+          <span className="text-base font-medium text-white/90">This Device's Microphone</span>
+          <span className="text-xs text-white/40">
+            {error
+              ? `Error: ${error}`
+              : enabled
+                ? note !== null
+                  ? `Hearing ${noteLabel(note)}`
+                  : 'Listening… play a single note'
+                : 'For acoustic pianos. Single notes only.'}
+          </span>
+        </div>
+        <Switch
+          isSelected={enabled}
+          onChange={() => (enabled ? disableMic() : enableMic())}
+          size="lg"
+          className="text-white/60"
+        >
+          <span className="sr-only">Toggle microphone</span>
+        </Switch>
+      </div>
+      {enabled && (
+        <label className="flex items-center gap-3 text-xs text-white/40">
+          Strictness
+          <input
+            type="range"
+            min={0.6}
+            max={0.98}
+            step={0.01}
+            value={clarity}
+            onChange={(e) => setClarity(Number(e.target.value))}
+            className="flex-1 accent-purple-400"
+          />
+        </label>
+      )}
     </div>
   )
 }
