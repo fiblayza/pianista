@@ -46,7 +46,7 @@ esperada" con tolerancia, no evalúa cada nota de un acorde.
 - Lo que trae: notas cayendo, modo partitura, entrada y salida MIDI, subida de MIDI/MusicXML, biblioteca en IndexedDB, freeplay, entrenamiento de frases (irlandés) y velocidad, 23 canciones libres, tests (66).
 - Lo que NO trae (corrige la evaluación inicial): **entrada por micrófono**. Se construye en fase 3.
 - Hecho: Google Analytics eliminado, soundfont GM de 533 MB sustituido por CDN bajo demanda (solo el piano de 4 MB va en la app), rutas de assets con `BASE_URL`, workflow de GitHub Pages, README bilingüe, rebranding básico.
-- Pendiente del usuario: crear el repo `antoniayza/pianista` en GitHub, `git push`, activar Pages (Settings → Pages → Source: GitHub Actions).
+- Pendiente del usuario: crear el repo `fiblayza/pianista` en GitHub, `git push`, activar Pages (Settings → Pages → Source: GitHub Actions).
 - **Entregable:** URL pública funcionando con el catálogo de sightread.
 
 ### Fase 1 — Idioma y nombres de notas (1‑2 sesiones)

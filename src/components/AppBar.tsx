@@ -55,7 +55,7 @@ export default function AppBar() {
               <Youtube size={20} />
             </NavIconButton>
             <NavIconButton
-              to={'https://github.com/antoniayza/pianista'}
+              to={'https://github.com/fiblayza/pianista'}
               label="GitHub"
               title="GitHub"
             >
@@ -94,7 +94,7 @@ function SmallWindowNav() {
           })}
           <Separator className="mx-2 my-1 border-t border-white/10" />
           <MenuItem
-            href="https://github.com/antoniayza/pianista"
+            href="https://github.com/fiblayza/pianista"
             target="_blank"
             className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-white/80 transition outline-none data-[focused]:bg-white/15 data-[pressed]:bg-white/10"
             aria-label="GitHub"
