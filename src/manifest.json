@@ -151,5 +151,75 @@
     "duration": 23,
     "url": "https://musescore.com/user/29786779/scores/5246287",
     "license": "https://creativecommons.org/licenses/by-sa/4.0/"
+  },
+  {
+    "file": "music/songs/ex-01-do-central.mid",
+    "title": "Ejercicio 01 · Do central y vecinas (Do Re Mi)",
+    "source": "builtin",
+    "id": "ex-01-do-central.mid",
+    "duration": 13
+  },
+  {
+    "file": "music/songs/ex-02-cinco-dedos-derecha.mid",
+    "title": "Ejercicio 02 · Posición de cinco dedos, mano derecha",
+    "source": "builtin",
+    "id": "ex-02-cinco-dedos-derecha.mid",
+    "duration": 15
+  },
+  {
+    "file": "music/songs/ex-03-cinco-dedos-izquierda.mid",
+    "title": "Ejercicio 03 · Posición de cinco dedos, mano izquierda",
+    "source": "builtin",
+    "id": "ex-03-cinco-dedos-izquierda.mid",
+    "duration": 15
+  },
+  {
+    "file": "music/songs/ex-04-escala-do-mayor.mid",
+    "title": "Ejercicio 04 · Escala de Do mayor, mano derecha",
+    "source": "builtin",
+    "id": "ex-04-escala-do-mayor.mid",
+    "duration": 11
+  },
+  {
+    "file": "music/songs/ex-05-escala-dos-manos.mid",
+    "title": "Ejercicio 05 · Escala de Do mayor a dos manos",
+    "source": "builtin",
+    "id": "ex-05-escala-dos-manos.mid",
+    "duration": 13
+  },
+  {
+    "file": "music/songs/ex-06-acordes-basicos.mid",
+    "title": "Ejercicio 06 · Acordes Do, Fa, Sol (I IV V I)",
+    "source": "builtin",
+    "id": "ex-06-acordes-basicos.mid",
+    "duration": 16
+  },
+  {
+    "file": "music/songs/ex-07-arpegios.mid",
+    "title": "Ejercicio 07 · Arpegios de Do, Fa, Sol",
+    "source": "builtin",
+    "id": "ex-07-arpegios.mid",
+    "duration": 12
+  },
+  {
+    "file": "music/songs/ex-08-inversiones.mid",
+    "title": "Ejercicio 08 · Inversiones del acorde de Do",
+    "source": "builtin",
+    "id": "ex-08-inversiones.mid",
+    "duration": 14
+  },
+  {
+    "file": "music/songs/ex-09-mayor-menor.mid",
+    "title": "Ejercicio 09 · Acordes mayores y menores (Do, Lam, Rem, Mim)",
+    "source": "builtin",
+    "id": "ex-09-mayor-menor.mid",
+    "duration": 14
+  },
+  {
+    "file": "music/songs/ex-10-progresion-do-lam-fa-sol.mid",
+    "title": "Ejercicio 10 · Progresión Do Lam Fa Sol, arpegios y bajo",
+    "source": "builtin",
+    "id": "ex-10-progresion-do-lam-fa-sol.mid",
+    "duration": 27
   }
 ]
