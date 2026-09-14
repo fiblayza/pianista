@@ -119,13 +119,25 @@ export type MidiEvent = {
   timeStamp: number
 }
 
-function parseMidiMessage(event: MIDIMessageEvent): MidiEvent | null {
-  const data = event.data!
+// Old keyboards and cheap USB-MIDI cables use "running status": after the first
+// message they omit the status byte, so note-offs arrive as 2 bytes. Remember it.
+let runningStatus = 0
+
+export function parseMidiMessage(
+  event: Pick<MIDIMessageEvent, 'data' | 'timeStamp'>,
+): MidiEvent | null {
+  let data = event.data!
+  if (data.length === 2 && runningStatus) {
+    data = new Uint8Array([runningStatus, data[0], data[1]])
+  }
   if (data.length !== 3) {
     return null
   }
 
   let status = data[0]
+  if (status >= 0x80 && status < 0xf0) {
+    runningStatus = status
+  }
   let command = status >>> 4
 
   // 0x8 = Note Off, 0x9 = Note On, 0xA = Polyphonic Aftertouch
