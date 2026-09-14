@@ -293,6 +293,12 @@ class MidiState {
 
 const midiState = new MidiState()
 
+// ponytail: cheap CH345 "USB2.0-MIDI" cables drop running-status messages, so note-offs never
+// arrive and keys stay stuck. After 6 note-ons without any note-off, release notes ourselves
+// 250ms after the press. A real interface (e.g. Roland UM-ONE) is the actual fix.
+let onsWithoutOff = 0
+const autoRelease = new Map<number, ReturnType<typeof setTimeout>>()
+
 function onMidiMessage(e: MIDIMessageEvent) {
   const msg: MidiEvent | null = parseMidiMessage(e)
   if (!msg) {
@@ -302,7 +308,15 @@ function onMidiMessage(e: MIDIMessageEvent) {
   const { note, velocity } = msg
   if (msg.type === 'on' && msg.velocity > 0) {
     midiState.press(note, velocity)
+    if (++onsWithoutOff >= 6) {
+      clearTimeout(autoRelease.get(note))
+      autoRelease.set(
+        note,
+        setTimeout(() => midiState.release(note), 250),
+      )
+    }
   } else {
+    onsWithoutOff = 0
     midiState.release(note)
   }
 }
